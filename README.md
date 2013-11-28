@@ -3,6 +3,8 @@ PHP KeyStore-S3
 
 [kumatch/keystore](https://github.com/kumatch/php-keystore) driver for AWS S3.
 
+[![Build Status](https://travis-ci.org/kumatch/php-keystore-s3.png?branch=master)](https://travis-ci.org/kumatch/php-keystore-s3)
+
 
 Install
 -----
