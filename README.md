@@ -9,12 +9,12 @@ PHP KeyStore-S3
 Install
 -----
 
-Add "kumatch/fs-keystore-s3" as a dependency in your project's composer.json file.
+Add "kumatch/keystore-s3" as a dependency in your project's composer.json file.
 
 
     {
       "require": {
-        "kumatch/fs-keystore-s3": "*"
+        "kumatch/keystore-s3": "*"
       }
     }
 
