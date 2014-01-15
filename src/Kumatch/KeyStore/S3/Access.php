@@ -1,8 +1,9 @@
 <?php
 namespace Kumatch\KeyStore\S3;
 
-use Kumatch\KeyStore\Filesystem\Access as FilesystemAccess;
 use Aws\S3\S3Client;
+use Kumatch\KeyStore\Filesystem\Access as FilesystemAccess;
+use Kumatch\KeyStore\S3\Exception\Exception;
 
 class Access extends FilesystemAccess
 {
@@ -58,10 +59,17 @@ class Access extends FilesystemAccess
     /**
      * @param StreamPath $src
      * @param StreamPath $dst
+     * @throws Exception
      * @return bool
      */
-    public function copy(StreamPath $src, StreamPath $dst)
+    public function copy($src, $dst)
     {
+        if (!is_a($src, '\Kumatch\KeyStore\S3\StreamPath')
+            || !is_a($dst, '\Kumatch\KeyStore\S3\StreamPath')
+        ) {
+            throw new Exception();
+        }
+
         $params = array(
             'Bucket' => $dst->getBucket(),
             'Key' => $dst->getKey(),
@@ -82,10 +90,17 @@ class Access extends FilesystemAccess
     /**
      * @param StreamPath $src
      * @param StreamPath $dst
+     * @throws Exception
      * @return bool|void
      */
-    public function rename(StreamPath $src, StreamPath $dst)
+    public function rename($src, $dst)
     {
+        if (!is_a($src, '\Kumatch\KeyStore\S3\StreamPath')
+            || !is_a($dst, '\Kumatch\KeyStore\S3\StreamPath')
+        ) {
+            throw new Exception();
+        }
+
         if (!$this->copy($src, $dst)) {
             return false;
         }
