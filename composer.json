@@ -15,8 +15,8 @@
     "require": {
         "php": ">=5.3.3",
         "aws/aws-sdk-php": "2.*",
-        "kumatch/keystore": "*",
-        "kumatch/keystore-filesystem": "*",
+        "kumatch/keystore": "0.2",
+        "kumatch/keystore-filesystem": "0.2",
         "kumatch/path": "*"
     },
     "require-dev": {

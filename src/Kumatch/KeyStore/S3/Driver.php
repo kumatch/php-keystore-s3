@@ -1,6 +1,7 @@
 <?php
 namespace Kumatch\KeyStore\S3;
 
+use Guzzle\Stream\Stream;
 use Kumatch\Path;
 use Kumatch\KeyStore\Filesystem\Driver as FilesystemDriver;
 use Kumatch\KeyStore\AccessDriverInterface;
@@ -26,7 +27,7 @@ class Driver extends FilesystemDriver implements AccessDriverInterface
         $this->s3Config = $s3Config;
         $this->bucket = $bucket;
 
-        $this->rootPath = $bucket;
+        $this->rootPath = "/" . $bucket;
     }
 
     /**
@@ -52,7 +53,7 @@ class Driver extends FilesystemDriver implements AccessDriverInterface
     {
         $path = parent::createPath($key);
 
-        return sprintf('s3://%s', $path);
+        return StreamPath::parse($path);
     }
 
 

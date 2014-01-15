@@ -54,4 +54,42 @@ class Access extends FilesystemAccess
         // do nothing.
         return true;
     }
+
+    /**
+     * @param StreamPath $src
+     * @param StreamPath $dst
+     * @return bool
+     */
+    public function copy(StreamPath $src, StreamPath $dst)
+    {
+        $params = array(
+            'Bucket' => $dst->getBucket(),
+            'Key' => $dst->getKey(),
+            'CopySource' => sprintf("/%s/%s", $src->getBucket(), $src->getKey()),
+            'MetadataDirective' => 'COPY'
+        );
+
+        $s3Client = $this->getS3Client();
+        $s3Client->copyObject($params);
+        $s3Client->waitUntilObjectExists(array(
+            'Bucket' => $dst->getBucket(),
+            'Key' => $dst->getKey(),
+        ));
+
+        return true;
+    }
+
+    /**
+     * @param StreamPath $src
+     * @param StreamPath $dst
+     * @return bool|void
+     */
+    public function rename(StreamPath $src, StreamPath $dst)
+    {
+        if (!$this->copy($src, $dst)) {
+            return false;
+        }
+
+        return $this->unlink($src);
+    }
 }
