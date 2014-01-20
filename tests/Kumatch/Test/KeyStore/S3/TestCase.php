@@ -13,10 +13,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     /** @var  string */
     protected $methodName;
+    protected $secondArgument;
 
     protected function setUp()
     {
         parent::setUp();
+
+        $this->secondArgument = "hello, world";
     }
 
     protected function tearDown()
@@ -73,9 +76,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $driver = $this->getDriver();
 
         $key = "../foo";
-        $value = "hello, world";
 
-        call_user_func_array(array($driver, $this->methodName), array($key, $value));
+        call_user_func_array(array($driver, $this->methodName), array($key, $this->secondArgument));
     }
 
     /**
@@ -87,9 +89,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $driver = $this->getDriver();
 
         $key = "";
-        $value = "hello, world";
 
-        call_user_func_array(array($driver, $this->methodName), array($key, $value));
+        call_user_func_array(array($driver, $this->methodName), array($key, $this->secondArgument));
     }
 
     /**
@@ -101,8 +102,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $driver = $this->getDriver();
 
         $key = ".";
-        $value = "hello, world";
 
-        call_user_func_array(array($driver, $this->methodName), array($key, $value));
+        call_user_func_array(array($driver, $this->methodName), array($key, $this->secondArgument));
     }
 }
